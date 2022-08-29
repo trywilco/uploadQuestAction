@@ -1,0 +1,19 @@
+name: "Upload Quest"
+description: "Upload new draft for a quest in Wilco"
+inputs:
+  quest-editor-token:
+    description: "Quest editor unique token"
+    required: true
+  quest-id:
+    description: "Id of the quest as specified in `quest.yml`"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - id: zip-quest-info
+    - run: zip -r quest.zip .v
+      shell: bash
+    - id: upload-draft
+      run: |
+        curl --request PUT --url "https://esapir.ngrok.io/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-token: ${{ inputs.quest-editor-token }}" -F "file=@quest.zip;type=application/x-zip-compressed"
+      shell: bash
