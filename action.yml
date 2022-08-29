@@ -11,7 +11,7 @@ runs:
   using: "composite"
   steps:
     - id: zip-quest-info
-      run: zip -r quest.zip .v
+      run: zip -r quest.zip .
       shell: bash
     - id: upload-draft
       run: |
