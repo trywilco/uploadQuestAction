@@ -19,5 +19,5 @@ runs:
       shell: bash
     - id: upload-draft
       run: |
-        curl --request PUT --url "${{ wilco-engine-url }}/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-token: ${{ inputs.quest-editor-token }}" -F "file=@quest.zip;type=application/x-zip-compressed"
+        curl --request PUT --url "${{ inputs.wilco-engine-url }}/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-token: ${{ inputs.quest-editor-token }}" -F "file=@quest.zip;type=application/x-zip-compressed"
       shell: bash
