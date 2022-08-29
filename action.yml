@@ -7,6 +7,10 @@ inputs:
   quest-id:
     description: "Id of the quest as specified in `quest.yml`"
     required: true
+  wilco-engine-url:
+    description: "URL of the Wilco Engine URL"
+    required: false
+    default: "https://esapir.ngrok.io"
 runs:
   using: "composite"
   steps:
@@ -15,5 +19,5 @@ runs:
       shell: bash
     - id: upload-draft
       run: |
-        curl --request PUT --url "https://esapir.ngrok.io/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-token: ${{ inputs.quest-editor-token }}" -F "file=@quest.zip;type=application/x-zip-compressed"
+        curl --request PUT --url "${{ wilco-engine-url }}/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-token: ${{ inputs.quest-editor-token }}" -F "file=@quest.zip;type=application/x-zip-compressed"
       shell: bash
