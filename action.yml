@@ -1,7 +1,10 @@
 name: "Upload Quest"
 description: "Upload new draft for a quest in Wilco"
 inputs:
-  quest-editor-token:
+  quest-editor-user-email:
+    description: "Quest editor email"
+    required: true
+  quest-editor-user-token:
     description: "Quest editor unique token"
     required: true
   quest-id:
@@ -19,5 +22,5 @@ runs:
       shell: bash
     - id: upload-draft
       run: |
-        curl --request PUT --url "${{ inputs.wilco-engine-url }}/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-token: ${{ inputs.quest-editor-token }}" -F "file=@quest.zip;type=application/x-zip-compressed"
+        curl --request PUT --url "${{ inputs.wilco-engine-url }}/api/v1/editor/quest/${{ inputs.quest-id }}?isPrimaryId=true" -H "x-editor-user-token: ${{ inputs.quest-editor-user-token }}" -H "x-editor-user-email: ${{ inputs.quest-editor-user-email }}" -F "file=@quest.zip;type=application/x-zip-compressed"
       shell: bash
