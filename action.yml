@@ -7,9 +7,6 @@ inputs:
   quest-editor-user-token:
     description: "Quest editor unique token"
     required: true
-  quest-id:
-    description: "Id of the quest as specified in `quest.yml`"
-    required: true
   wilco-engine-url:
     description: "URL of the Wilco Engine URL"
     required: false
