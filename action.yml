@@ -13,7 +13,7 @@ inputs:
   wilco-engine-url:
     description: "URL of the Wilco Engine URL"
     required: false
-    default: "https://esapir.ngrok.io"
+    default: "https://engine.wilco.gg"
 runs:
   using: "composite"
   steps:
