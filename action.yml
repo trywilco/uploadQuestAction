@@ -19,5 +19,5 @@ runs:
       shell: bash
     - id: upload-draft
       run: |
-        curl -i --request PUT --url "${{ inputs.wilco-engine-url }}/api/v1/editor/quest/$( cat quest.yml | grep "^id:" | awk '{ print $2}' | sed "s/['\"]//g" )?isPrimaryId=true" -H "x-editor-user-token: ${{ inputs.quest-editor-user-token }}" -H "x-editor-user-email: ${{ inputs.quest-editor-user-email }}" -F "file=@quest.zip;type=application/x-zip-compressed" --fail
+        curl --request PUT --url "${{ inputs.wilco-engine-url }}/api/v1/editor/quest/$( cat quest.yml | grep "^id:" | awk '{ print $2}' | sed "s/['\"]//g" )?isPrimaryId=true" -H "x-editor-user-token: ${{ inputs.quest-editor-user-token }}" -H "x-editor-user-email: ${{ inputs.quest-editor-user-email }}" -F "file=@quest.zip;type=application/x-zip-compressed" --fail-with-body
       shell: bash
