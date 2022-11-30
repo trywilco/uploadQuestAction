@@ -20,6 +20,7 @@ runs:
     - name: Set quest id
       id: get_id
       run: echo quest_id=`cat quest.yml | grep "^id:" | awk '{ print $2}' | sed "s/['\"]//g"` >> $GITHUB_OUTPUT
+      shell: bash
     - name: curl
       uses: wei/curl@master
       with:
