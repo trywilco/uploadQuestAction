@@ -24,7 +24,7 @@ runs:
       shell: bash
       
     - name: apt
-      run: sudo apt-get curl
+      run: sudo apt install curl
       shell: bash
       
     - name: shell
