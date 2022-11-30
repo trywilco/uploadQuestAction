@@ -22,14 +22,9 @@ runs:
       id: get_id
       run: echo quest_id=`cat quest.yml | grep "^id:" | awk '{ print $2}' | sed "s/['\"]//g"` >> $GITHUB_OUTPUT
       shell: bash
-      
-    - name: shell2
-      uses: trywilco/curl-github-action@master
-      with:
-        args: "-V"
      
     - name: curl
-      uses: trywilco/curl-github-action@master
+      uses: enflo/curl-action@master
       with:
-        args: "--request PUT --url '${{ inputs.wilco-engine-url }}/api/v1/editor/quest/${{ steps.get_id.outputs.quest_id }}?isPrimaryId=true' -H 'x-editor-user-token: ${{ inputs.quest-editor-user-token }}' -H 'x-editor-user-email: ${{ inputs.quest-editor-user-email }}' -F 'file=@quest.zip;type=application/x-zip-compressed' --fail-with-body"
+        curl:  "--request PUT --url '${{ inputs.wilco-engine-url }}/api/v1/editor/quest/${{ steps.get_id.outputs.quest_id }}?isPrimaryId=true' -H 'x-editor-user-token: ${{ inputs.quest-editor-user-token }}' -H 'x-editor-user-email: ${{ inputs.quest-editor-user-email }}' -F 'file=@quest.zip;type=application/x-zip-compressed' --fail-with-body"
 
