@@ -23,6 +23,10 @@ runs:
       run: echo quest_id=`cat quest.yml | grep "^id:" | awk '{ print $2}' | sed "s/['\"]//g"` >> $GITHUB_OUTPUT
       shell: bash
       
+    - name: apt
+      run: apt list --installed
+      shell: bash
+      
     - name: shell
       uses: wei/curl@master
       with:
