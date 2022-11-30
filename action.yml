@@ -17,6 +17,10 @@ runs:
     - id: zip-quest-info
       run: zip -r quest.zip .
       shell: bash
+    - id: version
+      run: |
+        curl -V
+      shell: bash
     - id: curl
       run: |
         curl --help
