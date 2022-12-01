@@ -1,3 +1,4 @@
+var FormData = require('form-data');
 const core = require("@actions/core");
 const yaml = require('js-yaml');
 const fs = require("fs");
@@ -18,7 +19,7 @@ const zipQuest = async () => {
 
 const uploadQuest = async (questId, zipFile) => {
   const fileName = 'quest.zip';
-  const body = new FormData
+  const body = new FormData();
   body.append("file", "@quest.zip;type=application/x-zip-compressed")
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
   try {    
