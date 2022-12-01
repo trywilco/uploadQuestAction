@@ -2,12 +2,8 @@ const core = require("@actions/core");
 const yaml = require('js-yaml');
 const fs = require("fs");
 const child_process = require("child_process");
-//const fetch = require("node-fetch");
-//const FormData = require("form-data");
-import fetch, {
-  FormData,
-  fileFromSync,
-} from 'node-fetch'
+const fetch = require("node-fetch");
+const FormData = require("form-data");
 
 const getQuestId = async () => {
   const questFile = await fs.promises.readFile('quest.yml', 'utf8');
@@ -25,7 +21,9 @@ const uploadQuest = async (questId, zipFile) => {
   const fileName = 'quest.zip';
   const body = new FormData();
   //body.append("file", "@quest.zip;type=application/x-zip-compressed")
-  body.append('file', fetch.fileFromSync('quest.zip;type=application/x-zip-compressed'));
+  //body.append('file', fetch.fileFromSync('quest.zip;type=application/x-zip-compressed'));
+  body.append('file', fs.readFileSync('quest.zip;type=application/x-zip-compressed'), 'quest.zip;type=application/x-zip-compressed');
+
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
   try {    
     const res = await fetch(url, { 
