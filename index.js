@@ -6,46 +6,41 @@ const fetch = require("node-fetch");
 const FormData = require("form-data");
 
 const getQuestId = async () => {
+  console.log("Getting quest id");
   const questFile = fs.readFileSync('quest.yml', 'utf8');
   const doc = yaml.load(questFile);
   return doc.id;
 }
 
 const zipQuest = async () => {
+  console.log("Zipping quest files");
   const zipFile = "quest.zip"
-  await child_process.execSync(`zip -r ${zipFile} .`, {stdio: 'inherit'});
-  await child_process.execSync(`ls`, {stdio: 'inherit'});
+  await child_process.execSync(`zip -r ${zipFile} .`);
   return zipFile;
 }
 
 const uploadQuest = async (questId, zipFile) => {
-  const fileName = 'quest.zip';
+  console.log(`Uploading ${questId}`);
   const body = new FormData();
-  //body.append("file", "@quest.zip;type=application/x-zip-compressed")
-  //body.append('file', fetch.fileFromSync('quest.zip;type=application/x-zip-compressed'));
-  body.append('file', fs.readFileSync('quest.zip'), {
-  contentType: 'application/x-zip-compressed',
-  name: fileName,
-  filename: fileName,
-});
+  body.append('file', fs.readFileSync(zipFile), {
+    contentType: 'application/x-zip-compressed',
+    name: zipFile,
+    filename: zipFile,
+  });
 
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
   try {    
     const res = await fetch(url, { 
       method: 'PUT', 
       headers: {
-//	"Content-Type": "multipart/form-data;",
         "x-editor-user-token": core.getInput('quest-editor-user-token'),
         "x-editor-user-email": core.getInput('quest-editor-user-email'),
       },
       body,
-//      formData: {
-//        file: fs.createReadStream('quest.zip'),
-//        filetype: 'zip',
-//        filename: 'quest.zip',
-//      },
     });
-    core.setOutput("response", res.json());
+     
+    console.log("Uploading successed")
+    console.log(res.json());
   } catch (error) {
     console.log({error});
     core.setFailed(error.message);
