@@ -30,6 +30,7 @@ const uploadQuest = async (questId, zipFile) => {
         "x-editor-user-token": core.getInput('quest-editor-user-token'),
         "x-editor-user-email": core.getInput('quest-editor-user-email'),
       },
+      body,
 //      formData: {
 //        file: fs.createReadStream('quest.zip'),
 //        filetype: 'zip',
