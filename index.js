@@ -40,7 +40,7 @@ const uploadQuest = async (questId, zipFile) => {
     });
      
     console.log("Uploading successed")
-    console.log(res.json());
+    console.log(await res.json());
   } catch (error) {
     console.log({error});
     core.setFailed(error.message);
