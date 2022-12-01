@@ -41,7 +41,6 @@ const uploadQuest = async (questId, zipFile) => {
     if (!res.ok) {
       console.log("Uploading failed");
       const resJson = await res.json();
-      console.log({resJson});
       throw new Error(resJson.error.message);
     } else {
       console.log("Uploading successed")
