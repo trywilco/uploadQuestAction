@@ -34,7 +34,7 @@ const uploadQuest = async (questId, zipFile) => {
     const res = await fetch(url, { 
       method: 'PUT', 
       headers: {
-	"Content-Type": "multipart/form-data;",
+//	"Content-Type": "multipart/form-data;",
         "x-editor-user-token": core.getInput('quest-editor-user-token'),
         "x-editor-user-email": core.getInput('quest-editor-user-email'),
       },
