@@ -2,8 +2,12 @@ const core = require("@actions/core");
 const yaml = require('js-yaml');
 const fs = require("fs");
 const child_process = require("child_process");
-const fetch = require("node-fetch");
-const FormData = require("form-data");
+//const fetch = require("node-fetch");
+//const FormData = require("form-data");
+import fetch, {
+  FormData,
+  fileFromSync,
+} from 'node-fetch'
 
 const getQuestId = async () => {
   const questFile = await fs.promises.readFile('quest.yml', 'utf8');
