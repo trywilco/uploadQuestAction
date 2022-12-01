@@ -13,7 +13,8 @@ const getQuestId = async () => {
 
 const zipQuest = async () => {
   const zipFile = "quest.zip"
-  await child_process.execSync(`zip -r ${zipFile} .`);
+  await child_process.execSync(`zip -r ${zipFile} .`, {stdio: 'inherit'});
+  await child_process.execSync(`ls`, {stdio: 'inherit'});
   return zipFile;
 }
 
