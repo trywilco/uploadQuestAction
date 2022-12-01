@@ -18,20 +18,22 @@ const zipQuest = async () => {
 
 const uploadQuest = async (questId, zipFile) => {
   const fileName = 'quest.zip';
-
+  const body = new FormData
+  body.append("file", "@quest.zip;type=application/x-zip-compressed")
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
   try {    
     const res = await fetch(url, { 
       method: 'PUT', 
       headers: {
+	"Content-Type": "multipart/form-data",
         "x-editor-user-token": core.getInput('quest-editor-user-token'),
         "x-editor-user-email": core.getInput('quest-editor-user-email'),
       },
-      formData: {
-        file: fs.createReadStream('quest.zip'),
-        filetype: 'zip',
-        filename: 'quest.zip',
-    },
+#      formData: {
+#        file: fs.createReadStream('quest.zip'),
+#        filetype: 'zip',
+#        filename: 'quest.zip',
+#      },
     });
     core.setOutput("response", res.json());
   } catch (error) {
