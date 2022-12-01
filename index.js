@@ -51,6 +51,7 @@ const main = async () => {
     const zipFile = await zipQuest();
     await uploadQuest(questId, zipFile);
   } catch (error) {
+    console.log({error});
     core.setFailed(error.message);
   }
 };
