@@ -1,11 +1,11 @@
 const core = require("@actions/core");
 const yaml = require('js-yaml');
-const fs, { promises: fsProm } = require("fs");
+const fs = require("fs");
 const child_process = require("child_process");
 const fetch = require("node-fetch");
 
 const getQuestId = async () => {
-  const questFile = await fsProm.readFile('quest.yml', 'utf8');
+  const questFile = await fs.promises.readFile('quest.yml', 'utf8');
   const doc = yaml.load(questFile);
   return doc.id;
 }
