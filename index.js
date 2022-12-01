@@ -5,15 +5,8 @@ const { promises: fs } = require("fs");
 const child_process = require("child_process");
 const fetch = require("node-fetch");
 
-const runActions = async () => {
-  const wilcoId = await fs.readFile(".wilco", "utf8");
-  const res = await fetch(`${host}/prs/${wilcoId}/actions`);
-  const body = await res.json();
-  await runCommands(body);
-};
-
 const getQuestId = async () => {
-  const questFile = await fs.readFile('quest.yml, 'utf8');
+  const questFile = await fs.readFile('quest.yml', 'utf8');
   const doc = yaml.load(questFile);
   return doc.id;
 }
@@ -40,9 +33,9 @@ const uploadQuest = async (questId, zipFile) => {
     const res = await fetch(url, { 
       method: 'PUT', 
       headers: {
-        "x-editor-user-token": ${core.getInput('quest-editor-user-token"},
-        "x-editor-user-email": ${core.getInput('quest-editor-user-email"},
-      }
+        "x-editor-user-token": core.getInput('quest-editor-user-token'),
+        "x-editor-user-email": core.getInput('quest-editor-user-email'),
+      },
       body: form, 
       
     });
@@ -51,13 +44,16 @@ const uploadQuest = async (questId, zipFile) => {
     console.log({error});
     core.setFailed(error.message);
   }
-  }
 }
 
 const main = async () => {
-  const questId = await getQuestId();
-  const zipFile = await zipQuest();
-  const uploadQuest(questId, zipFile);
+  try {
+    const questId = await getQuestId();
+    const zipFile = await zipQuest();
+    await uploadQuest(questId, zipFile);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
 };
 
 main();
