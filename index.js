@@ -23,7 +23,7 @@ const uploadQuest = async (questId, zipFile) => {
   const body = new FormData();
   //body.append("file", "@quest.zip;type=application/x-zip-compressed")
   //body.append('file', fetch.fileFromSync('quest.zip;type=application/x-zip-compressed'));
-  body.append('file', fs.readFileSync('quest.zip;type=application/x-zip-compressed'), 'quest.zip;type=application/x-zip-compressed');
+  body.append('file', fs.readFileSync('quest.zip'), 'quest.zip;type=application/x-zip-compressed');
 
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
   try {    
