@@ -29,7 +29,6 @@ const uploadQuest = async (questId, zipFile) => {
   });
 
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
-  try {    
     const res = await fetch(url, { 
       method: 'PUT', 
       headers: {
@@ -38,13 +37,15 @@ const uploadQuest = async (questId, zipFile) => {
       },
       body,
     });
-     
+        
+    if (!response.ok) {
+      console.log("Uploading failed")
+      console.log(await res.json());
+      throw new Error(`Error! status: ${response.status}`);
+    }
+
     console.log("Uploading successed")
     console.log(await res.json());
-  } catch (error) {
-    console.log({error});
-    core.setFailed(error.message);
-  }
 }
 
 const main = async () => {
