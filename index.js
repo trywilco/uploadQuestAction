@@ -60,7 +60,11 @@ const validateQuest = async (questId, zipFile) => {
     const resJson = await res.json();
     console.log(resJson.error?.message);
     if (resJson?.filePath) {
-      core.error(resJson.error?.message, { file: resJson.filePath, line: resJson.line, title: "Validation error" });
+      core.error(resJson.error?.message, {
+        file: resJson.filePath,
+        startLine: resJson.line,
+        title: "Validation error"
+      });
     }
     throw new Error(resJson.message);
   } else {
