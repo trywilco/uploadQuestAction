@@ -11,6 +11,10 @@ inputs:
     description: "URL of the Wilco Engine URL"
     required: false
     default: "https://engine.wilco.gg"
+  only-validate:
+    description: "Validate the quest schema without creating a draft for it"
+    required: false
+    default:  "false"
 runs:
   using: 'node16'
   main: 'dist/index.js'
