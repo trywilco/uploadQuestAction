@@ -19,7 +19,7 @@ const zipQuest = async () => {
   return zipFile;
 }
 
-const uploadQuest = async (questId, zipFile, onlyValidate = false) => {
+const callEditorApi = async (url, questId, zipFile) => {
   const body = new FormData();
   body.append('file', fs.readFileSync(zipFile), {
     contentType: 'application/x-zip-compressed',
@@ -27,7 +27,6 @@ const uploadQuest = async (questId, zipFile, onlyValidate = false) => {
     filename: zipFile,
   });
 
-  const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true&onlyValidate=${onlyValidate}`
   return await fetch(url, {
     method: 'PUT',
     headers: {
@@ -40,7 +39,8 @@ const uploadQuest = async (questId, zipFile, onlyValidate = false) => {
 
 const createDraft = async (questId, zipFile) => {
   console.log(`Uploading ${questId}`);
-  const res = await uploadQuest(questId, zipFile);
+  const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}?isPrimaryId=true`
+  const res = await callEditorApi(url, questId, zipFile);
   if (!res.ok) {
     console.log("Failed to create draft");
     const resJson = await res.json();
@@ -54,7 +54,8 @@ const createDraft = async (questId, zipFile) => {
 
 const validateQuest = async (questId, zipFile) => {
   console.log(`Uploading ${questId}`);
-  const res = await uploadQuest(questId, zipFile, true);
+  const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}/validate`
+  const res = await callEditorApi(url, questId, zipFile);
   if (!res.ok) {
     console.log("Failed to validate quest");
     const resJson = await res.json();

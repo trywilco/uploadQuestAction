@@ -12426,9 +12426,11 @@ const validateQuest = async (questId, zipFile) => {
   if (!res.ok) {
     console.log("Failed to validate quest");
     const resJson = await res.json();
-    console.log(resJson.error?.message);
+    if (resJson.error?.message) {
+      console.log(resJson.error?.message);
+    }
     if (resJson?.filePath) {
-      core.error(resJson.error?.message, {
+      core.error(resJson.error?.message || resJson?.message, {
         file: resJson.filePath,
         startLine: resJson.line,
         title: "Validation error"
