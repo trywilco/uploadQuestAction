@@ -53,7 +53,7 @@ const createDraft = async (questId, zipFile) => {
 }
 
 const validateQuest = async (questId, zipFile) => {
-  console.log(`Uploading ${questId}`);
+  console.log(`Validating ${questId}`);
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}/validate`
   const res = await callEditorApi(url, questId, zipFile);
   if (!res.ok) {

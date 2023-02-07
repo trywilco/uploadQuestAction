@@ -12425,7 +12425,7 @@ const validateQuest = async (questId, zipFile) => {
   const url = `${core.getInput('wilco-engine-url')}/api/v1/editor/quest/${questId}/validate`
   const res = await callEditorApi(url, questId, zipFile);
   if (!res.ok) {
-    console.log("Failed to validate quest");
+    console.log("Quest is not valid");
     const resJson = await res.json();
     if (resJson.error?.message) {
       console.log(resJson.error?.message);
