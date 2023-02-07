@@ -61,7 +61,7 @@ const validateQuest = async (questId, zipFile) => {
     console.log(resJson.error?.message);
     console.log(">>>>>>>>>>>>>>>>>>");
     console.log({
-      res: JSON.stringify(res.error)
+      res: JSON.stringify(resJson)
     });
     console.log("<<<<<<<<<<<<<<<<<<");
     core.error(resJson.message, { file: 'steps/funneldrop_analyze_data.yml', title: "Step validation error" });
