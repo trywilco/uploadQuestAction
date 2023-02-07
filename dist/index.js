@@ -12427,12 +12427,9 @@ const validateQuest = async (questId, zipFile) => {
     console.log("Failed to validate quest");
     const resJson = await res.json();
     console.log(resJson.error?.message);
-    console.log(">>>>>>>>>>>>>>>>>>");
-    console.log({
-      res: JSON.stringify(resJson)
-    });
-    console.log("<<<<<<<<<<<<<<<<<<");
-    core.error(resJson.message, { file: 'steps/funneldrop_analyze_data.yml', title: "Step validation error" });
+    if (resJson.error?.filePath) {
+      core.error(resJson.error?.message, { file: resJson.error.filePath, title: "Validation error" });
+    }
     throw new Error(resJson.message);
   } else {
     console.log("Quest was validated successfully")
