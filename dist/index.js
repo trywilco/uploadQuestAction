@@ -12427,6 +12427,7 @@ const validateQuest = async (questId, zipFile) => {
     console.log("Failed to validate quest");
     const resJson = await res.json();
     console.log(resJson.error?.message);
+    core.error(`This is a bad error, ${error.message}`, { file: 'steps/funneldrop_analyze_data.yml' });
     throw new Error(resJson.message);
   } else {
     console.log("Quest was validated successfully")
@@ -12445,7 +12446,6 @@ const main = async () => {
       await createDraft(questId, zipFile);
     }
   } catch (error) {
-    core.error(`This is a bad error, ${error.message}`);
     core.setFailed(error.message);
   }
 };
