@@ -77,6 +77,7 @@ const main = async () => {
       await createDraft(questId, zipFile);
     }
   } catch (error) {
+    core.error(`This is a bad error, ${error.message}`);
     core.setFailed(error.message);
   }
 };
