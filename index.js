@@ -80,7 +80,7 @@ const main = async () => {
   try {
     const questId = await getQuestId();
     const zipFile = await zipQuest();
-    const onlyValidate = core.getInput('only-validate');
+    const onlyValidate = core.getInput('only-validate') === "true";
     if (onlyValidate) {
       await validateQuest(questId, zipFile);
     } else {
